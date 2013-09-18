@@ -55,12 +55,12 @@ EOD
 	if (!defined($uri)) {
     die "URI undefined!\n";
 	}
-  my $base_dn = $cfg->param('BASE');
+  my $base_dn = join(",", $cfg->param('BASE'));
 	if (!defined($base_dn)) {
     die "BASE undefined!\n";
 	}
   my $cfg_private = new Config::Simple(glob($PRIV_CONF));
-  my $bind_dn = $cfg_private->param('BIND_DN');
+  my $bind_dn = join(",", $cfg_private->param('BIND_DN'));
 	if (!defined($bind_dn)) {
     die "BIND_DN undefined!\n";
 	}

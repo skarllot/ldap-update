@@ -11,13 +11,13 @@ Unfortunately, although in LDAP we have a powerful search filter syntax at our d
 So I've written my own utility that emulates the functionality of SQL language for updating LDAP directories.
 
 Its usage follows the following pattern:
-
-  ``update_ldap_generic.pl SET 'attribute=value' WHERE '(LDAP_FILTER)'
+<code>
+  update_ldap_generic.pl SET 'attribute=value' WHERE '(LDAP_FILTER)'
 
   update_ldap_generic.pl ADD 'attribute=value[,attribute2=value2,...]' WHERE '(LDAP_FILTER)'
 
   update_ldap_generic.pl REPLACE 'attribute=value' WITH 'attribute=value' WHERE '(LDAP_FILTER)'
-``
+</code>
 As you can see, the syntax is a bit different from SQL to accomodate the semantics of LDAP directories - specifically, the support for multi-valued attributes.
 
 Examples:

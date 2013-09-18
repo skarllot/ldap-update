@@ -11,8 +11,8 @@ Unfortunately, although in LDAP we have a powerful search filter syntax at our d
 So I've written my own utility that emulates the functionality of SQL language for updating LDAP directories.
 
 Its usage follows the following pattern:
-``
-  update_ldap_generic.pl SET 'attribute=value' WHERE '(LDAP_FILTER)'
+
+  ``update_ldap_generic.pl SET 'attribute=value' WHERE '(LDAP_FILTER)'
 
   update_ldap_generic.pl ADD 'attribute=value[,attribute2=value2,...]' WHERE '(LDAP_FILTER)'
 

@@ -44,7 +44,7 @@ Configuration:
  The BIND_DN and PASSWORD options must be set in $PRIV_CONF, e.g.:
 
 BIND_DN=cn=Manager
-PASSWORD=IamDirectoryManager17833#@913&^#
+PASSWORD=IamDirectoryManager17833#\@913&^#
 
  If PASSWORD isn't specified, it will be asked for interactively.
 
@@ -60,11 +60,17 @@ EOD
     die "BASE undefined!\n";
 	}
   my $cfg_private = new Config::Simple(glob($PRIV_CONF));
-  my $bind_dn = join(",", $cfg_private->param('BIND_DN'));
+  my $bind_dn = undef;
+  my $pw = undef;
+  if(defined($cfg_private)) {
+    my $bind_dn = join(",", $cfg_private->param('BIND_DN'));
+    my $pw = $cfg_private->param('PASSWORD');
+  }
 	if (!defined($bind_dn)) {
-    die "BIND_DN undefined!\n";
+                print "Supply bind user (DOMAIN\\sAMAccountName or CN): ";
+                chomp($bind_dn = <STDIN>);
+                print "\n";
 	}
-  my $pw = $cfg_private->param('PASSWORD');
 	if (!defined($pw)) {
 		system "stty -echo";
 		print "Supply bind password for user $bind_dn:";

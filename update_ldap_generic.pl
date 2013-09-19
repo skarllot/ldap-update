@@ -1,12 +1,8 @@
 #!/usr/bin/perl -w
-# by Aleksander Adamowski
-# Wed Apr 27 19:55:55 CEST 2005: initial version
-# Tue May 24 18:49:00 CEST 2005: multi ADD
-# Wed, 23 Apr 2008 12:39:02 +0200: translated everything into English
-# 
-# update_ldap.pl SET 'attribute=value' WHERE '(LDAP_FILTER)'
-# update_ldap.pl ADD 'attribute=value'[,attribute2=value2',...] WHERE '(LDAP_FILTER)'
-# update_ldap.pl REPLACE 'attribute=value' WITH 'attribute=new_value' WHERE '(LDAP_FILTER)'
+#
+# Aleksander Adamowski <aleksander.adamowski@gmail.com>, 2005-2008.
+# Fabrício Godoy <skarllot@gmail.com>, 2013.
+#
 
 use Net::LDAP;
 use Config::Simple;
@@ -46,7 +42,7 @@ Configuration:
 BIND_DN=cn=Manager
 PASSWORD=IamDirectoryManager17833#\@913&^#
 
- If PASSWORD isn't specified, it will be asked for interactively.
+ If BIND_DN or PASSWORD isn't specified, it will be asked for interactively.
 
 EOD
 } else {
@@ -66,18 +62,18 @@ EOD
     my $bind_dn = join(",", $cfg_private->param('BIND_DN'));
     my $pw = $cfg_private->param('PASSWORD');
   }
-	if (!defined($bind_dn)) {
-                print "Supply bind user (DOMAIN\\sAMAccountName or CN): ";
-                chomp($bind_dn = <STDIN>);
-                print "\n";
-	}
-	if (!defined($pw)) {
-		system "stty -echo";
-		print "Supply bind password for user $bind_dn:";
-		chomp($pw = <STDIN>);
-		print "\n";
-		system "stty echo";
-	}
+  if (!defined($bind_dn)) {
+    print "Supply bind user (DOMAIN\\Account or CN): ";
+    chomp($bind_dn = <STDIN>);
+    print "\n";
+  }
+  if (!defined($pw)) {
+    system "stty -echo";
+    print "Supply bind password for user $bind_dn:";
+    chomp($pw = <STDIN>);
+    print "\n";
+    system "stty echo";
+  }
   my $ldap_source = Net::LDAP->new($uri) or die "$@";
   my $mesg = $ldap_source->bind( $bind_dn, password => $pw);
   if ($mesg->code != 0) {

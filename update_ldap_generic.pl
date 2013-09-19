@@ -3,6 +3,8 @@
 # Aleksander Adamowski <aleksander.adamowski@gmail.com>, 2005-2008.
 # Fabrício Godoy <skarllot@gmail.com>, 2013.
 #
+# Version: 0.2
+#
 
 use Net::LDAP;
 use Config::Simple;

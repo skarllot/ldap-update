@@ -36,6 +36,6 @@ Change the manager for all the marketing employees:
 
 NOTICE: in order for the utility to work, you'll have to provide configuration for the connection parameters. Directory's URI and base DN should be specified in /etc/openldap/ldap.conf. Bind DN and (optionally) password in ~/.update_ldap.rc.
 
-Download the utility: <http://ldap-update.googlecode.com/svn/trunk/update_ldap_generic.pl>
+Download the utility: <https://github.com/skarllot/ldap-update/archive/v0.2.zip>
 
 This utility has been originally published on <http://olo.org.pl/dr/node/10>

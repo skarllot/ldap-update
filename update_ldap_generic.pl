@@ -18,11 +18,15 @@ our $PRIV_CONF = '~/.update_ldap.rc';
 if (scalar(@ARGV) < 4 || ($ARGV[2] ne 'WHERE' && $ARGV[2] ne 'WITH')) {
   print <<EOD
 Usage:
+ $0 SELECT dn WHERE '(LDAP_FILTER)'
  $0 SET 'attribute=value' WHERE '(LDAP_FILTER)'
  $0 ADD 'attribute=value[,attribute2=value2,...]' WHERE '(LDAP_FILTER)'
  $0 REPLACE 'attribute=value' WITH 'attribute=new_value' WHERE '(LDAP_FILTER)'
 
 Examples:
+Printing all objects affected by LDAP filter:
+ $0 SELECT dn WHERE '(objectclass=person)'
+
 Setting a common password for all users:
  $0 SET 'userPassword=migration.3781' WHERE '(objectclass=person)'
 
@@ -96,6 +100,14 @@ EOD
   my @entries = $result->entries;
   my $count = scalar(@entries);
   if ($count <= 0) {
+    die "Found $count objects.\n";
+  }
+  if ($oper eq 'SELECT') {
+    my $entry;
+    foreach $entry (@entries) {
+      print $entry->dn;
+      print "\n";
+    }
     die "Found $count objects.\n";
   }
   print "Count of objects to be modified: $count\n\n";
